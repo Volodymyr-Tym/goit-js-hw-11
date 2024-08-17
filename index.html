@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JS homework 11</title>
     
-    <link rel="stylesheet" href="/goit-js-hw-11/assets/index-c9db6b34.css">
+    <script type="module" crossorigin src="/goit-js-hw-11/commonHelpers.js"></script>
+    <link rel="stylesheet" href="/goit-js-hw-11/assets/index-12167230.css">
   </head>
 
   <body>
-    <section class="search-form-section">
+    <section class="gallery-section">
       <form class="search-form js-form">
         <input
           class="search-form-input"
@@ -18,10 +19,12 @@
         />
         <button class="search-form-btn" type="submit">Search</button>
       </form>
-    </section>
 
-    <section class="gallery-section">
+      <p class="loading-text visually-hidden">Loading images, please wait...</p>
+
       <ul class="gallery js-gallery"></ul>
     </section>
+
+    
   </body>
 </html>
