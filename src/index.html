@@ -8,7 +8,7 @@
   </head>
 
   <body>
-    <section class="search-form-section">
+    <section class="gallery-section">
       <form class="search-form js-form">
         <input
           class="search-form-input"
@@ -17,10 +17,12 @@
         />
         <button class="search-form-btn" type="submit">Search</button>
       </form>
-    </section>
 
-    <section class="gallery-section">
+      <p class="loading-text visually-hidden">Loading images, please wait...</p>
+
       <ul class="gallery js-gallery"></ul>
     </section>
+
+    <script type="module" src="./main.js"></script>
   </body>
 </html>
