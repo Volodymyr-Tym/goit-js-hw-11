@@ -1,42 +1,49 @@
+import iziToast from 'izitoast';
+import { createGalleryImageTemplate } from './js/render-functions';
+import { fetchImages } from './js/pixabay-api';
+
+const form = document.querySelector('form.js-form');
 const gallery = document.querySelector('ul.js-gallery');
 
-const createGalleryItem = itemInfo => {
-  return `
-    <li class="gallery-item">
-      <a class="item-link" href="${itemInfo.largeImageURL}">
-        <img class="item-img"
-        src="${itemInfo.webformatURL}"
-        data-source="${itemInfo.largeImageURL}"
-        alt="${itemInfo.tags}"/>
-      </a>
+const onFormSubmit = event => {
+  event.preventDefault();
 
-      <ul class="item-info-list">
-        <li class="item-info">
-          <p class="info-name">Likes</p>
-          <p class="info-nubmer">${itemInfo.likes}</p>
-        </li>
+  const input = form.search.value.trim();
 
-        <li class="item-info">
-          <p class="info-name">Views</p>
-          <p class="info-nubmer">${itemInfo.views}</p>
-        </li>
+  if (input === '') {
+    iziToast.info({
+      message: 'Searching field is empty',
+      messageSize: '16',
+      position: 'topRight',
+    });
 
-        <li class="item-info">
-          <p class="info-name">Comments</p>
-          <p class="info-nubmer">${itemInfo.comments}</p>
-        </li>
+    event.target.reset();
+  } else {
+    fetchImages(input)
+      .then(data => {
+        if (data.totalHits === 0) {
+          iziToast.error({
+            message:
+              'Sorry, there are no images matching your search query. Please try again!',
+            messageSize: '16',
+            position: 'topRight',
+          });
 
-        <li class="item-info">
-          <p class="info-name">Downloads</p>
-          <p class="info-nubmer">${itemInfo.downloads}</p>
-        </li>
-      </ul>
-    </li>
-  `;
+          event.target.reset();
+        } else {
+          const drawGallery = data.hits
+            .map(imageInfo => createGalleryImageTemplate(imageInfo))
+            .join('');
+
+          gallery.innerHTML = drawGallery;
+          event.target.reset();
+        }
+      })
+
+      .catch(err => {
+        console.log(err);
+      });
+  }
 };
 
-const galleryItemsTemplate = images
-  .map(imageInfo => createGalleryItem(imageInfo))
-  .join('');
-
-gallery.insertAdjacentHTML('afterbegin', galleryItemsTemplate);
+form.addEventListener('submit', onFormSubmit);
