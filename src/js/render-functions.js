@@ -9,23 +9,19 @@ export const createGalleryImageTemplate = imageInfo => {
   
         <ul class="item-info-list">
           <li class="item-info">
-            <p class="info-name">Likes</p>
-            <p class="info-nubmer">${imageInfo.likes}</p>
+            Likes <span class="quantity">${imageInfo.likes}</span> 
           </li>
   
           <li class="item-info">
-            <p class="info-name">Views</p>
-            <p class="info-nubmer">${imageInfo.views}</p>
+            Views <span class="quantity">${imageInfo.views}</span>
           </li>
   
           <li class="item-info">
-            <p class="info-name">Comments</p>
-            <p class="info-nubmer">${imageInfo.comments}</p>
+            Comments <span class="quantity">${imageInfo.comments}</span>
           </li>
   
           <li class="item-info">
-            <p class="info-name">Downloads</p>
-            <p class="info-nubmer">${imageInfo.downloads}</p>
+            Downloads <span class="quantity">${imageInfo.downloads}</span>
           </li>
         </ul>
       </li>

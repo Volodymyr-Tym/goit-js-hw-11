@@ -1,4 +1,3 @@
-// const URL = `https://pixabay.com/api/?key=${API_KEY}&q=${queryText}`;
 const URL = 'https://pixabay.com';
 const API_KEY = '45502477-f90d28a95f79ee2acbc927104';
 

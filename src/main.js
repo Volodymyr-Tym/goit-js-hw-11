@@ -1,12 +1,16 @@
 import iziToast from 'izitoast';
+import SimpleLightbox from 'simplelightbox';
 import { createGalleryImageTemplate } from './js/render-functions';
 import { fetchImages } from './js/pixabay-api';
 
 const form = document.querySelector('form.js-form');
 const gallery = document.querySelector('ul.js-gallery');
+const preLoader = document.querySelector('span.js-loader');
 
 const onFormSubmit = event => {
   event.preventDefault();
+  gallery.innerHTML = '';
+  preLoader.classList.remove('is-hidden');
 
   const input = form.search.value.trim();
 
@@ -17,11 +21,12 @@ const onFormSubmit = event => {
       position: 'topRight',
     });
 
+    preLoader.classList.add('is-hidden');
     event.target.reset();
   } else {
     fetchImages(input)
       .then(data => {
-        if (data.totalHits === 0) {
+        if (data.hits.length === 0) {
           iziToast.error({
             message:
               'Sorry, there are no images matching your search query. Please try again!',
@@ -35,13 +40,22 @@ const onFormSubmit = event => {
             .map(imageInfo => createGalleryImageTemplate(imageInfo))
             .join('');
 
-          gallery.innerHTML = drawGallery;
+          gallery.insertAdjacentHTML('beforeend', drawGallery);
+
+          const newGalleryBox = new SimpleLightbox('ul.gallery a', {
+            captionsData: 'alt',
+            captionDelay: 250,
+          });
+
+          newGalleryBox.refresh();
           event.target.reset();
         }
       })
-
       .catch(err => {
         console.log(err);
+      })
+      .finally(() => {
+        preLoader.classList.add('is-hidden');
       });
   }
 };

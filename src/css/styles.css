@@ -1,8 +1,10 @@
 @import url('./reset.css');
-@import 'izitoast/dist/css/iziToast.min.css';
+@import url('izitoast/dist/css/iziToast.css');
+@import url('simplelightbox/dist/simple-lightbox.min.css');
 
 body {
   font-family: 'Montserrat', sans-serif;
+  background-color: #f0f0f0;
 }
 
 .visually-hidden {
@@ -29,9 +31,6 @@ body {
   align-items: center;
 }
 
-/* =============================================
- !           Винести спільні font-styles в Body
-============================================ */
 .search-form {
   display: flex;
   column-gap: 8px;
@@ -92,14 +91,6 @@ body {
   background-color: #6c8cff;
 }
 
-.loading-text {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5;
-  letter-spacing: 0.04em;
-  color: #2e2f42;
-}
-
 .gallery {
   max-width: 1128px;
   width: 100%;
@@ -136,19 +127,57 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
 
-.info-name {
   font-weight: 600;
   font-size: 12px;
   line-height: 1.33;
   letter-spacing: 0.04em;
   color: #2e2f42;
 }
-.info-nubmer {
+
+.quantity {
   font-weight: 400;
   font-size: 12px;
   line-height: 2;
   letter-spacing: 0.04em;
   color: #2e2f42;
+}
+
+/* =============================================
+ !           LOADER STYLES
+============================================ */
+.loader.is-hidden {
+  display: none;
+}
+
+.loader {
+  display: block;
+  position: relative;
+  height: 4px;
+  width: 20%;
+  border: 1px solid #808080;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.loader::after {
+  content: '';
+  width: 40%;
+  height: 100%;
+  background: #4e75ff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  animation: animloader 1000ms linear infinite;
+}
+
+@keyframes animloader {
+  0% {
+    left: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    left: 100%;
+    transform: translateX(0%);
+  }
 }
