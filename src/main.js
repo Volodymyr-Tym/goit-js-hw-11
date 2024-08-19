@@ -28,8 +28,9 @@ const onFormSubmit = event => {
       .then(data => {
         if (data.hits.length === 0) {
           iziToast.error({
+            title: 'Sorry,',
             message:
-              'Sorry, there are no images matching your search query. Please try again!',
+              'there are no images matching your search query. Please try again!',
             messageSize: '16',
             position: 'topRight',
           });
@@ -52,8 +53,19 @@ const onFormSubmit = event => {
         }
       })
       .catch(err => {
-        console.log(err);
+        iziToast.error({
+          title: err.name,
+          titleSize: '18',
+          message: err.message,
+          messageSize: '18',
+          position: 'center',
+          timeout: false,
+          progressBar: false,
+          overlay: true,
+          overlayColor: 'rgba(0, 0, 0, 0.5)',
+        });
       })
+
       .finally(() => {
         preLoader.classList.add('is-hidden');
       });
